@@ -1,0 +1,30 @@
+[
+  {
+    "id": "dasheri",
+    "name": "Dasheri",
+    "tagline": "Silky smooth, fibreless, intensely sweet",
+    "description": "King of North Indian varieties.",
+    "icon": "🥭"
+  },
+  {
+    "id": "himayath",
+    "name": "Himayath Pasand",
+    "tagline": "Hyderabadi heritage",
+    "description": "Rich, creamy, deeply aromatic.",
+    "icon": "🥭"
+  },
+  {
+    "id": "banganapalli",
+    "name": "Banganapalli",
+    "tagline": "Large, golden-yellow, mildly sweet",
+    "description": "Perfect for juicing and slicing.",
+    "icon": "🥭"
+  },
+  {
+    "id": "rasalu",
+    "name": "Rasalu",
+    "tagline": "Small, tangy-sweet, bursting with juice",
+    "description": "Seasonal favourite for purists.",
+    "icon": "🥭"
+  }
+]

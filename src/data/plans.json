@@ -1,0 +1,41 @@
+[
+  {
+    "id": "initial",
+    "stage": "Initial / Growing",
+    "yield": "~30 KG",
+    "subtitle": "Best for first-time subscribers",
+    "isPopular": false,
+    "pricing": {
+      "dasheri": "₹6,500 – ₹8,000",
+      "himayath": "₹7,000 – ₹8,500",
+      "banganapalli": "₹6,500 – ₹8,000",
+      "rasalu": "₹7,500 – ₹10,500"
+    }
+  },
+  {
+    "id": "mature",
+    "stage": "Mature",
+    "yield": "~45 KG",
+    "subtitle": "Ideal for families",
+    "isPopular": true,
+    "pricing": {
+      "dasheri": "₹10,500 – ₹12,000",
+      "himayath": "₹11,000 – ₹12,500",
+      "banganapalli": "₹10,500 – ₹12,000",
+      "rasalu": "₹12,000 – ₹14,500"
+    }
+  },
+  {
+    "id": "fully-mature",
+    "stage": "Fully Matured",
+    "yield": "~60 KG",
+    "subtitle": "For mango lovers & gifting",
+    "isPopular": false,
+    "pricing": {
+      "dasheri": "₹14,000 – ₹15,500",
+      "himayath": "₹14,500 – ₹16,000",
+      "banganapalli": "₹14,000 – ₹15,500",
+      "rasalu": "₹15,500 – ₹18,500"
+    }
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Priya R.",
+    "location": "Gachibowli",
+    "rating": 5,
+    "text": "The mangoes are incomparable to anything in the market. Knowing exactly which tree they come from makes it so special.",
+    "avatar": "PR"
+  },
+  {
+    "id": 2,
+    "name": "Kiran M.",
+    "location": "Kondapur",
+    "rating": 5,
+    "text": "Gifted a tree to my daughter. She gets updates every month and visiting the farm to see her tree was amazing!",
+    "avatar": "KM"
+  },
+  {
+    "id": 3,
+    "name": "Suresh B.",
+    "location": "Banjara Hills",
+    "rating": 5,
+    "text": "Farm visit was the highlight of our year. Group booking with our friends. And the mangoes are heavenly.",
+    "avatar": "SB"
+  }
+]
