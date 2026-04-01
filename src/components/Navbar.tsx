@@ -1,6 +1,14 @@
-import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+
+const navLinks = [
+  { label: 'Ritual', hash: '#how-it-works' },
+  { label: 'Varieties', hash: '#varieties' },
+  { label: 'Stages', hash: '#pricing' },
+  { label: 'Farm Visits', hash: '#visits' },
+  { label: 'Contact', hash: '#contact' },
+];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,120 +17,173 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 24);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
-
-  const navLinks = [
-    { name: 'How It Works', href: '/#how-it-works' },
-    { name: 'Varieties', href: '/#varieties' },
-    { name: 'Pricing', href: '/#pricing' },
-    { name: 'Farm Visits', href: '/#visits' },
-  ];
+  const resolveHash = (hash: string) => (location.pathname === '/' ? hash : `/${hash}`);
+  const primaryHref = location.pathname === '/' ? '#pricing' : '/#pricing';
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <nav className={`fixed w-full top-0 z-[100] transition-all duration-500 ${
-      isScrolled ? 'py-4 glass-header' : 'py-6 bg-transparent'
-    }`}>
-      <div className="max-w-[1240px] mx-auto px-6 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-serif font-black text-[#111111] tracking-tighter flex items-center gap-1.5 group">
-          <span className="text-3xl transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">🥭</span>
-          <span className="uppercase tracking-[0.1em]">MangoBox</span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name}
-              href={link.href} 
-              className="text-[13px] font-black uppercase tracking-[0.2em] text-[#111111]/70 hover:text-[#111111] transition-all relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[#111111] transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
-          <Link 
-            to="/subscribe" 
-            className="bg-[#111111] text-white px-8 py-3 rounded-xl text-[12px] font-black uppercase tracking-[0.2em] hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-lg"
-          >
-            Join Membership
-          </Link>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden relative z-[110] w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+    <motion.header
+      initial={{ opacity: 0, y: -24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed inset-x-0 top-0 z-[120] transition-all duration-500 ${
+        isScrolled ? 'px-3 pt-3 md:px-4' : 'px-0 pt-0'
+      }`}
+    >
+      <div
+        className={`mx-auto flex max-w-[1440px] items-center justify-between transition-all duration-500 ${
+          isScrolled
+            ? 'glass-nav rounded-[28px] px-4 py-3.5 shadow-[0_18px_50px_rgba(26,18,8,0.08)] md:px-7 md:py-4'
+            : 'px-4 py-4 md:px-8 md:py-7'
+        }`}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.span 
-            animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            className={`w-7 h-[2px] bg-[#111111] transition-all duration-300 ${isMobileMenuOpen ? 'bg-white' : ''}`}
+          <Link
+            to="/"
+            className="flex min-w-0 items-center gap-2.5 text-[var(--ink)] sm:gap-3"
+            data-cursor="brand"
+            onClick={closeMobileMenu}
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[rgba(201,168,76,0.55)] bg-[rgba(249,244,236,0.88)] shadow-[0_10px_26px_rgba(26,18,8,0.08)] sm:h-11 sm:w-11">
+              <span className="text-[1.08rem] leading-none text-[var(--saffron)] sm:text-[1.2rem]">
+                M
+              </span>
+            </span>
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate font-[var(--font-display)] text-[1.6rem] leading-none tracking-[0.02em] sm:text-[1.9rem]">
+                MangoBox
+              </span>
+              <span className="hidden font-[var(--font-label)] text-[0.58rem] uppercase tracking-[0.24em] text-[rgba(26,18,8,0.52)] min-[430px]:block sm:text-[0.68rem] sm:tracking-[0.42em]">
+                Hyderabad Orchard Estate
+              </span>
+            </span>
+          </Link>
+        </motion.div>
+
+        <motion.nav
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+            },
+          }}
+          className="hidden items-center gap-8 lg:flex"
+        >
+          {navLinks.map((link) => (
+            <motion.a
+              key={link.label}
+              variants={{
+                hidden: { opacity: 0, x: -18 },
+                visible: { opacity: 1, x: 0 },
+              }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              href={resolveHash(link.hash)}
+              className="nav-link-luxury"
+              data-cursor="nav"
+              onClick={closeMobileMenu}
+            >
+              {link.label}
+            </motion.a>
+          ))}
+          <motion.a
+            href={primaryHref}
+            variants={{
+              hidden: { opacity: 0, x: -18 },
+              visible: { opacity: 1, x: 0 },
+            }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="luxury-button luxury-button--solid luxury-button--nav"
+            data-cursor="cta"
+            onClick={closeMobileMenu}
+          >
+            Reserve a Tree
+          </motion.a>
+        </motion.nav>
+
+        <button
+          type="button"
+          aria-label="Toggle navigation"
+          className="relative z-[130] flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full border border-[rgba(201,168,76,0.45)] bg-[rgba(249,244,236,0.78)] text-[var(--ink)] sm:h-11 sm:w-11 lg:hidden"
+          onClick={() => setIsMobileMenuOpen((open) => !open)}
+          data-cursor="toggle"
+        >
+          <motion.span
+            animate={isMobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+            className="block h-px w-5 bg-current"
           />
-          <motion.span 
+          <motion.span
             animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="w-7 h-[2px] bg-[#111111]"
+            className="block h-px w-5 bg-current"
           />
-          <motion.span 
-            animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            className={`w-7 h-[2px] bg-[#111111] transition-all duration-300 ${isMobileMenuOpen ? 'bg-white' : ''}`}
+          <motion.span
+            animate={isMobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+            className="block h-px w-5 bg-current"
           />
         </button>
       </div>
 
-      {/* Premium Mobile Nav Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-[#111111] z-[105] md:hidden flex flex-col items-center justify-center p-8"
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-3 top-3 rounded-[34px] border border-[rgba(201,168,76,0.32)] bg-[rgba(249,244,236,0.96)] p-6 shadow-[0_26px_80px_rgba(26,18,8,0.16)] backdrop-blur-2xl lg:hidden"
           >
-            <div className="flex flex-col items-center gap-10">
-              {navLinks.map((link, i) => (
-                <motion.a 
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
+            <div className="flex h-full flex-col justify-between">
+              <div className="space-y-4 pb-5 pt-20">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.label}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i + 0.2 }}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-3xl font-serif font-bold text-white/60 hover:text-white transition-colors"
+                  transition={{ delay: 0.08 * index, duration: 0.45 }}
+                  href={resolveHash(link.hash)}
+                  className="block border-b border-[rgba(26,18,8,0.08)] pb-4 font-[var(--font-heading)] text-[1.8rem] text-[var(--ink)]"
+                  data-cursor="menu-link"
+                  onClick={closeMobileMenu}
                 >
-                  {link.name}
+                  {link.label}
                 </motion.a>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="mt-10"
-              >
-                <Link 
-                  to="/subscribe" 
-                  className="bg-white text-[#111111] px-12 py-5 rounded-2xl text-lg font-black uppercase tracking-[0.2em] shadow-2xl"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Start Now
-                </Link>
-              </motion.div>
-            </div>
+              </div>
 
-            <div className="absolute bottom-10 flex flex-col items-center gap-4 text-white/30 text-xs uppercase tracking-widest font-black">
-              <p>Experience Local Luxury</p>
+              <div className="flex flex-col gap-4 pt-2">
+                <a
+                  href={primaryHref}
+                  className="luxury-button luxury-button--solid luxury-button--nav text-center"
+                  data-cursor="cta"
+                  onClick={closeMobileMenu}
+                >
+                  Reserve a Tree
+                </a>
+                <div className="rounded-[28px] border border-[rgba(201,168,76,0.28)] bg-[rgba(242,235,224,0.8)] px-5 py-4">
+                  <p className="font-[var(--font-label)] text-[0.68rem] uppercase tracking-[0.38em] text-[rgba(26,18,8,0.52)]">
+                    Mango Concierge
+                  </p>
+                  <p className="mt-2 font-[var(--font-body)] text-[0.98rem] leading-relaxed text-[rgba(26,18,8,0.76)]">
+                    Slow-grown fruit, private farm visits, and annual gifting, composed like an estate ritual.
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.header>
   );
 };

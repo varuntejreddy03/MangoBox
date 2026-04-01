@@ -7,30 +7,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#FFFDF7',
-        'background-alt': '#F5F0E8',
+        background: '#F9F4EC',
+        'background-alt': '#F2EBE0',
         orange: {
-          DEFAULT: '#E8651A',
-          hover: '#CF5515',
-          light: '#FEF3E8',
+          DEFAULT: '#E8843A',
+          hover: '#C4621A',
+          light: '#F7E7D6',
         },
-        gold: '#F5A623',
+        gold: '#C9A84C',
         green: {
-          DEFAULT: '#2D6A4F',
-          dark: '#1A4733',
-          light: '#EAF4EE',
+          DEFAULT: '#2D4A2F',
+          dark: '#1F3520',
+          light: '#E4E8E0',
         },
         text: {
-          primary: '#1C1917',
-          secondary: '#57534E',
-          muted: '#A8A29E',
+          primary: '#1A1208',
+          secondary: '#5C5144',
+          muted: '#8C8070',
         },
-        border: '#E7E2D9',
-        card: '#FFFFFF',
+        border: '#D8CCBC',
+        card: '#F2EBE0',
       },
       fontFamily: {
-        heading: ['Playfair Display', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        heading: ['"Playfair Display"', 'serif'],
+        body: ['"Lora"', 'serif'],
       },
       boxShadow: {
         card: '0 2px 16px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04)',

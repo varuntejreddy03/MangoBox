@@ -1,12 +1,12 @@
-import { Routes, Route } from 'react-router-dom';
-import { Navbar } from './components/Navbar';
+import { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar';
+import { SmoothScroll } from './components/SmoothScroll';
 import { WhatsAppFAB } from './components/WhatsAppFAB';
+import { OrderProvider } from './context/OrderContext';
 import { Home } from './pages/Home';
 import { Subscribe } from './pages/Subscribe';
-import { OrderProvider } from './context/OrderContext';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -23,15 +23,14 @@ function ScrollToTop() {
 function App() {
   return (
     <OrderProvider>
+      <SmoothScroll />
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
+      <div className="relative min-h-screen overflow-x-clip bg-[var(--ivory)]">
         <Navbar />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/subscribe" element={<Subscribe />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/subscribe" element={<Subscribe />} />
+        </Routes>
         <Footer />
         <WhatsAppFAB />
       </div>
